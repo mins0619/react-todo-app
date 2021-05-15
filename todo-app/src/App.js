@@ -8,7 +8,7 @@ const App = () => {
        {
            id: 1,
            text: '리엑트 기초 알아보기',
-           checked: true, 
+           checked: true,
        },
        {
            id: 2,
@@ -45,10 +45,21 @@ const App = () => {
       [todos],
   );
 
+  const onToggle = useCallback(
+      id => {
+        setTodos(
+            todos.map( todo =>
+                todo.id === id ? {...todo, checked: [todo.checked]} : todo,
+                ),
+        );
+      },
+      [todos]
+  );
+
   return (
       <TodoTemplate>
           <TodoInsert onInsert={onInsert} />
-          <TodoList todos={todos} onRemove={onRemove}/>
+          <TodoList todos={todos} onRemove={onRemove} onToggle={onToggle}/>
       </TodoTemplate>
   );
 };
